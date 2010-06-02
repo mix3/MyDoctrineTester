@@ -8,24 +8,14 @@ class MyDoctrineTest
     {
         $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', true);
         new sfDatabaseManager($configuration);
-        
-        // DB構築
-        exec('./symfony doctrine:drop-db --env=test --no-confirmation');
-        exec('./symfony doctrine:build-db --env=test');
-        exec('./symfony doctrine:insert-sql --env=test');
-        
-        $this->connection = Doctrine_Manager::connection();
-        $this->loadData($file);
-        $this->connection->beginTransaction();
     }
-
-    public function __destruct()
-    {
-        $this->rollback();
-    }
-
+    
     public function loadData($file = null)
     {
+        if($this->connection === null) {
+            $this->connection = Doctrine_Manager::connection();
+            $this->connection->beginTransaction();
+        }
         $fixture = sfConfig::get('sf_test_dir').'/fixtures';
         if($file !== null) {
             $fixture .= "/$file";

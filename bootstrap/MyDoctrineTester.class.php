@@ -21,6 +21,7 @@ class MyDoctrineTester
         foreach($class_methods as $method_name){
             if(preg_match('/^.*Test\d*$/', $method_name)){
                 $lime_test->diag($method_name.'() test');
+                $this->myTest->loadData();
                 try {
                     $this->$method_name($t);
                 }catch(Exception $e){
