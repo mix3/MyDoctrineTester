@@ -34,10 +34,6 @@ class MyDoctrineTest
         Doctrine::loadData($fixture);
     }
     
-    public function getLimeTest($num = null){
-        return new lime_test($num);
-    }
-    
     public function rollback() {
         if($this->connection !== null) {
             $this->connection->rollback();
