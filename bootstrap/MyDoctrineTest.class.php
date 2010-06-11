@@ -12,7 +12,7 @@ class MyDoctrineTest
     
     public function loadData($file = null)
     {
-        if($this->connection === null) {
+        if($this->connection == null) {
             $this->connection = Doctrine_Manager::connection();
             $this->connection->beginTransaction();
         }
@@ -24,10 +24,31 @@ class MyDoctrineTest
         Doctrine::loadData($fixture);
     }
     
-    public function rollback() {
+    public function beginTransaction()
+    {
+        $this->connection->beginTransaction();
+    }
+    
+    /*public function beginTransaction($name_space = null)
+    {
+        $this->connection->beginTransaction($name_space);
+    }*/
+    
+    public function rollback()
+    {
         if($this->connection !== null) {
             $this->connection->rollback();
             unset($this->connection);
         }
     }
+    
+    /*public function rollback($name_space = null)
+    {
+        if($this->connection !== null) {
+            $this->connection->rollback();
+            if($name_space == null){
+                unset($this->connection);
+            }
+        }
+    }*/
 }

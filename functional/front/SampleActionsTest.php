@@ -5,57 +5,36 @@ include(dirname(__FILE__).'/../../bootstrap/MyDoctrineTester.class.php');
 
 class MyTester extends MyDoctrineTester
 {
-    public function SampleTest($b)
+    public function FooTest($b)
     {
-        $b->
-            get('/mypage/index')->
-
-            with('request')->begin()->
-                isParameter('module', 'mypage')->
-                isParameter('action', 'index')->
-            end()->
-
-            with('response')->begin()->
-                isStatusCode(200)->
-                checkElement('body', '!/This is a temporary page/')->
-            end()
-        ;
+        $b->test()->pass('FooTest passes.');
     }
     
-    public function SampleTest00($b)
+    public function FooTest00($b)
     {
-        $b->
-            get('/mypage/index')->
-
-            with('request')->begin()->
-                isParameter('module', 'mypage')->
-                isParameter('action', 'index')->
-            end()->
-
-            with('response')->begin()->
-                isStatusCode(200)->
-                checkElement('body', '!/This is a temporary page/')->
-            end()
-        ;
+        $b->test()->pass('FooTest00 passes.');
     }
     
-    public function SampleTest01($b)
+    public function FooTest01($b)
     {
-        $b->
-            get('/mypage/index')->
+        $b->test()->pass('FooTest01 passes.');
+    }
 
-            with('request')->begin()->
-                isParameter('module', 'mypage')->
-                isParameter('action', 'index')->
-            end()->
-
-            with('response')->begin()->
-                isStatusCode(200)->
-                checkElement('body', '!/This is a temporary page/')->
-            end()
-        ;
+    public function BarTest($b)
+    {
+        $b->test()->pass('BarTest passes.');
+    }
+    
+    public function BarTest00($b)
+    {
+        $b->test()->pass('BarTest00 passes.');
+    }
+    
+    public function BarTest01($b)
+    {
+        $b->test()->pass('BarTest01 passes.');
     }
 }
 
 $myTester = new MyTester('front');
-$myTester->run(new sfTestFunctional(new sfBrowser()));
+$myTester->run(new sfTestFunctional(new sfBrowser()), $argv);
